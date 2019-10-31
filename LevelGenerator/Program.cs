@@ -23,8 +23,8 @@ class Program
             Console.Clear();
             int[,] level = LevelGenerator.GenerateLevel(
                 WIDTH, HEIGHT,
-                MIN_BLOCK_WIDTH, MIN_BLOCK_HEIGHT,
-                MAX_BLOCK_WIDTH, MAX_BLOCK_HEIGHT,
+                MIN_BLOCK_WIDTH, MAX_BLOCK_WIDTH,
+                MIN_BLOCK_HEIGHT, MAX_BLOCK_HEIGHT,
                 SECTION_HEIGHT, CHANCE_TO_PLACE_BLOCK);
             for (int i = level.GetLength(0) - 1; i >= 0; --i)
             {

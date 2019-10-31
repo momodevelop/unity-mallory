@@ -19,8 +19,8 @@ class LevelGenerator
 
     static void PlaceSection(
         int[,] level, int currentY, int sectionHeight,
-        int minBlockWidth, int minBlockHeight,
-        int maxBlockWidth, int maxBlockHeight,
+        int minBlockWidth, int maxBlockWidth,
+        int minBlockHeight, int maxBlockHeight,
         int chanceToPlaceBlock)
     {
         // the actual amount of height we can work with
@@ -60,8 +60,8 @@ class LevelGenerator
 
     public static int[,] GenerateLevel(
         int width, int height,
-        int minBlockWidth, int minBlockHeight,
-        int maxBlockWidth, int maxBlockHeight,
+        int minBlockWidth, int maxBlockWidth,
+        int minBlockHeight, int maxBlockHeight,
         int sectionHeight, int chanceToPlaceBlock)
     {
         int[,] level = new int[height, width];

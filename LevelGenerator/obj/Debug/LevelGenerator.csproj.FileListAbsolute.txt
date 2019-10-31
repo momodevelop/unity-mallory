@@ -5,3 +5,10 @@ C:\Users\GERALD WONG\Documents\Visual Studio 2017\Projects\LevelGenerator\obj\De
 C:\Users\GERALD WONG\Documents\Visual Studio 2017\Projects\LevelGenerator\obj\Debug\LevelGenerator.csproj.CoreCompileInputs.cache
 C:\Users\GERALD WONG\Documents\Visual Studio 2017\Projects\LevelGenerator\obj\Debug\LevelGenerator.exe
 C:\Users\GERALD WONG\Documents\Visual Studio 2017\Projects\LevelGenerator\obj\Debug\LevelGenerator.pdb
+D:\Stuff\Repos\unity\jump_man\LevelGenerator\bin\Debug\LevelGenerator.exe.config
+D:\Stuff\Repos\unity\jump_man\LevelGenerator\bin\Debug\LevelGenerator.exe
+D:\Stuff\Repos\unity\jump_man\LevelGenerator\bin\Debug\LevelGenerator.pdb
+D:\Stuff\Repos\unity\jump_man\LevelGenerator\obj\Debug\LevelGenerator.csprojAssemblyReference.cache
+D:\Stuff\Repos\unity\jump_man\LevelGenerator\obj\Debug\LevelGenerator.csproj.CoreCompileInputs.cache
+D:\Stuff\Repos\unity\jump_man\LevelGenerator\obj\Debug\LevelGenerator.exe
+D:\Stuff\Repos\unity\jump_man\LevelGenerator\obj\Debug\LevelGenerator.pdb
