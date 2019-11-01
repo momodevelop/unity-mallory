@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Controller : Momo.Singleton<Controller>
+﻿public class Controller : Momo.Singleton<Controller>
 {
     private Controls controls;
     

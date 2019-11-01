@@ -17,7 +17,7 @@ public class CharacterController : MonoBehaviour
     private Transform _transform;
     private Rigidbody2D _rigidBody;
     private BoxCollider2D _boxCollider;
-    private StateEnum _state = 0;
+   // private StateEnum _state = 0;
     private Vector3 _currentVelocity = Vector3.zero;
     private float _moveFactor = 0.0f;
     private int _jumpCounter = 0;

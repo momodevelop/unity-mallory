@@ -29,7 +29,7 @@ class LevelGenerator
         // max block height cannot be bigger than section height
         maxBlockHeight = maxBlockHeight > sectionHeight ? sectionHeight : maxBlockHeight;
 
-        // Place a random block at the base somewhere...
+        // TODO: Place a random block at the base somewhere...
 
         for (int x = 1; x < level.GetLength(1);)
         {
@@ -66,9 +66,15 @@ class LevelGenerator
     {
         int[,] level = new int[height, width];
 
-        for (int y = 1; y < height; y += sectionHeight)
+        // add floor
+        for (int i = 0; i < width; ++i)
         {
-            PlaceSection(level, y, sectionHeight, minBlockWidth, minBlockHeight, maxBlockWidth, maxBlockHeight, chanceToPlaceBlock);
+            level[0, i] = 1;
+        }
+
+        for (int y = 2; y < height; y += sectionHeight)
+        {
+            PlaceSection(level, y, sectionHeight, minBlockWidth, maxBlockWidth, minBlockHeight, maxBlockHeight, chanceToPlaceBlock);
         }
 
 
