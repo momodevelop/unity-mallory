@@ -739,5 +739,10 @@ PrefabInstance:
       propertyPath: levelEndTrigger
       value: 
       objectReference: {fileID: 1297579192}
+    - target: {fileID: 5691468702493350462, guid: 9caf2f77a950f8442a0f602180940c59,
+        type: 3}
+      propertyPath: camera
+      value: 
+      objectReference: {fileID: 973333675}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9caf2f77a950f8442a0f602180940c59, type: 3}
