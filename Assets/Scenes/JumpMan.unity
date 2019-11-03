@@ -668,6 +668,6 @@ PrefabInstance:
         type: 3}
       propertyPath: levelEndTrigger
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1297579192}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9caf2f77a950f8442a0f602180940c59, type: 3}
