@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-[RequireComponent(typeof(Tilemap))]
+
 public class LevelManager : Momo.PersistantMonoBehaviourSingleton<LevelManager>
 {
 
     #region Drag and Drop
-    public Sprite obstacleSprite;
+    public GameObject obstaclePrefab;
     [SerializeField]
     public LevelEndTrigger levelEndTrigger;
 
@@ -29,72 +29,9 @@ public class LevelManager : Momo.PersistantMonoBehaviourSingleton<LevelManager>
         public int MaxBlockHeight { get; set; }
         public int ChanceToPlaceBlock { get; set; }
     };
-    private class Tile : TileBase
-    {
-        public Sprite sprite;
-
-        public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
-        {
-
-            base.GetTileData(position, tilemap, ref tileData);
-            if (sprite != null)
-            {
-                tileData.sprite = sprite;
-                tileData.colliderType = UnityEngine.Tilemaps.Tile.ColliderType.Sprite;
-            }
-        }
-
-        public override void RefreshTile(Vector3Int position, ITilemap tilemap)
-        {
-            base.RefreshTile(position, tilemap);
-        }
-    }
 
 
-    // In charge of all modifications to tilemap
-    private class TilemapHelper
-    {
-        
-        internal static IEnumerator GenerateLevel(Tilemap tilemap, LevelData data, List<Sprite> spriteList)
-        {
-            int[,] map = LevelGenerator.GenerateLevel(
-                data.Width,
-                data.Height,
-                data.MinBlockWidth,
-                data.MaxBlockWidth,
-                data.MinBlockHeight,
-                data.MaxBlockHeight,
-                data.SectionHeight,
-                data.ChanceToPlaceBlock
-            );
-
-            // Set the tiles
-            yield return SyncLevelValueToTilemap(tilemap, map, spriteList);
-
-        }
-
-        private static IEnumerator SyncLevelValueToTilemap(Tilemap tilemap, int[,] level, List<Sprite> spriteList)
-        {
-            for (int row = 0; row < level.GetLength(0); ++row)
-            {
-                for (int col = 0; col < level.GetLength(1); ++col)
-                {
-                    int id = level[row, col];
-                    if (id < spriteList.Count)
-                        SetTilemapTile(tilemap, new Vector3Int(col, row, 0), spriteList[id]);
-                }
-                yield return null;
-            }
-        }
-
-        private static void SetTilemapTile(Tilemap tilemap, Vector3Int position, Sprite sprite)
-        {
-            var tile = ScriptableObject.CreateInstance<Tile>();
-            tile.sprite = sprite;
-            tilemap.SetTile(position, tile);
-        }
-
-    }
+   
     #endregion
 
     #region Constants
@@ -104,26 +41,18 @@ public class LevelManager : Momo.PersistantMonoBehaviourSingleton<LevelManager>
     #endregion
 
     LevelData levelData;
-    Tilemap tilemap;
-    List<Sprite> spriteList;
-
+    float currentY = 0.0f;
 
     // Start is called before the first frame update
     void Start()
     {
-        DestroyIfNull(obstacleSprite);
+        DestroyIfNull(obstaclePrefab);
         DestroyIfNull(levelEndTrigger);
         DestroyIfNull(camera);
 
-        // Initialize tilemap manager
-        tilemap = GetComponent<Tilemap>();
-        DestroyIfNull(tilemap);
 
         // Observe level end trigger box event
         levelEndTrigger.onTriggerEnterEvent += OnReachedEndpoint;
-
-        // Initialize sprite list
-        spriteList = new List<Sprite>(new[]{null, obstacleSprite});
         
         // Initialize level data
         levelData.Width = 20;
@@ -137,26 +66,59 @@ public class LevelManager : Momo.PersistantMonoBehaviourSingleton<LevelManager>
 
         // Generate the first level
         GenerateLevel();
+        JumpCurrentY();
+        SyncEndpoint();
     }
 
+    private void JumpCurrentY()
+    {
+        currentY += levelData.Height * kActualTileSize;
+    }
     private void OnReachedEndpoint()
     {
-        // move the tilemap up
-        float tilemapEndpoint = tilemap.transform.position.y + levelData.Height * kActualTileSize;
-        tilemap.transform.position = new Vector2(tilemap.transform.position.x, tilemapEndpoint);
         GenerateLevel();
+        JumpCurrentY();
+        SyncEndpoint();
+    }
 
-
+    private void SyncEndpoint()
+    {
+        levelEndTrigger.transform.position = new Vector2(levelEndTrigger.transform.position.x, currentY + kActualTileSize * 2);
     }
 
     private void GenerateLevel()
     {
-        StartCoroutine(TilemapHelper.GenerateLevel(tilemap, levelData, spriteList));
+        int[,] map = LevelGenerator.GenerateLevel(
+            levelData.Width,
+            levelData.Height,
+            levelData.MinBlockWidth,
+            levelData.MaxBlockWidth,
+            levelData.MinBlockHeight,
+            levelData.MaxBlockHeight,
+            levelData.SectionHeight,
+            levelData.ChanceToPlaceBlock
+        );
 
+        // populate the map with platforms
+       
+        float startY = currentY + kActualTileSize / 2;
+        for (int i = 0; i < map.GetLength(1); ++i)
+        {
+            float startX = kActualTileSize / 2;
+            for (int j = 0; j < map.GetLength(0); ++j)
+            {
+                if (map[i, j] == 1)
+                {
+                    GameObject obj = Instantiate(obstaclePrefab, new Vector2(startX, startY), Quaternion.identity);
+                    obj.transform.localScale = new Vector2(kTileSize, kTileSize);
+                }
+                startX += kActualTileSize;
+            }
+            startY += kActualTileSize;
+        }
 
         // set the end level box
-        float levelEndTriggerPosY = tilemap.transform.position.y + (levelData.Height + 2) * kActualTileSize;
-        levelEndTrigger.transform.position = new Vector2(levelEndTrigger.transform.position.x, levelEndTriggerPosY);
+        
     }
 
 
