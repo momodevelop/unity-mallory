@@ -62,17 +62,20 @@ class LevelGenerator
         int width, int height,
         int minBlockWidth, int maxBlockWidth,
         int minBlockHeight, int maxBlockHeight,
-        int sectionHeight, int chanceToPlaceBlock)
+        int sectionHeight, int chanceToPlaceBlock, bool floor = true)
     {
         int[,] level = new int[height, width];
 
-        // add floor
-        for (int i = 0; i < width; ++i)
-        {
-            level[0, i] = 1;
+        int startPoint = 0;
+        if (floor) { 
+            for (int i = 0; i < width; ++i)
+            {
+                level[0, i] = 1;
+            }
+            startPoint = 2;
         }
 
-        for (int y = 2; y < height; y += sectionHeight)
+        for (int y = startPoint; y < height; y += sectionHeight)
         {
             PlaceSection(level, y, sectionHeight, minBlockWidth, maxBlockWidth, minBlockHeight, maxBlockHeight, chanceToPlaceBlock);
         }

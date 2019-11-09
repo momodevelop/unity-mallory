@@ -13,7 +13,7 @@ public class LevelManager : Momo.PersistantMonoBehaviourSingleton<LevelManager>
     public LevelEndTrigger levelEndTrigger;
 
     [SerializeField]
-    Camera camera;
+    Camera camera = null;
     #endregion
 
     #region Internal classes
@@ -76,7 +76,7 @@ public class LevelManager : Momo.PersistantMonoBehaviourSingleton<LevelManager>
     }
     private void OnReachedEndpoint()
     {
-        GenerateLevel();
+        GenerateLevel(false);
         JumpCurrentY();
         SyncEndpoint();
     }
@@ -86,7 +86,7 @@ public class LevelManager : Momo.PersistantMonoBehaviourSingleton<LevelManager>
         levelEndTrigger.transform.position = new Vector2(levelEndTrigger.transform.position.x, currentY + kActualTileSize * 2);
     }
 
-    private void GenerateLevel()
+    private void GenerateLevel(bool floor = true)
     {
         int[,] map = LevelGenerator.GenerateLevel(
             levelData.Width,
@@ -96,7 +96,8 @@ public class LevelManager : Momo.PersistantMonoBehaviourSingleton<LevelManager>
             levelData.MinBlockHeight,
             levelData.MaxBlockHeight,
             levelData.SectionHeight,
-            levelData.ChanceToPlaceBlock
+            levelData.ChanceToPlaceBlock,
+            floor
         );
 
         // populate the map with platforms
@@ -110,7 +111,8 @@ public class LevelManager : Momo.PersistantMonoBehaviourSingleton<LevelManager>
                 if (map[i, j] == 1)
                 {
                     GameObject obj = Instantiate(obstaclePrefab, new Vector2(startX, startY), Quaternion.identity);
-                    obj.transform.localScale = new Vector2(kTileSize, kTileSize);
+                    SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
+                    obj.transform.localScale = new Vector2(kActualTileSize, kActualTileSize);
                 }
                 startX += kActualTileSize;
             }

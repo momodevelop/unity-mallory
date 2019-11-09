@@ -10,9 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4991746993297851924}
   - component: {fileID: 4991746993297851927}
-  - component: {fileID: 4991746993297851926}
+  - component: {fileID: -1142400250054927819}
+  - component: {fileID: -7679516743832144570}
+  - component: {fileID: 1930961987685399303}
   m_Layer: 8
-  m_Name: Platform
+  m_Name: obstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 4991746993297851929}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.41, y: -4.48, z: -0.29103196}
-  m_LocalScale: {x: 1403.8, y: 100, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -70,8 +72,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ad12c10ff8ee8614597a2c87583fcd6c, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 4769780537325725394, guid: 36cacc48f46599944a02a70253379618,
+    type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -81,8 +84,58 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &4991746993297851926
-BoxCollider2D:
+--- !u!114 &-1142400250054927819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4991746993297851929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ff1989ce044c3c409ac89a860241f1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 4769780537325725394, guid: 36cacc48f46599944a02a70253379618, type: 3}
+  - {fileID: 427354043565915074, guid: 36cacc48f46599944a02a70253379618, type: 3}
+  - {fileID: 1768795960349032398, guid: 36cacc48f46599944a02a70253379618, type: 3}
+  - {fileID: 8920399330390107142, guid: 36cacc48f46599944a02a70253379618, type: 3}
+  - {fileID: -3875223650415022992, guid: 36cacc48f46599944a02a70253379618, type: 3}
+  - {fileID: -128294230451675862, guid: 36cacc48f46599944a02a70253379618, type: 3}
+  - {fileID: -6030704129322214435, guid: 36cacc48f46599944a02a70253379618, type: 3}
+  - {fileID: 8558914334817492699, guid: 36cacc48f46599944a02a70253379618, type: 3}
+  - {fileID: -8450164522935967975, guid: 36cacc48f46599944a02a70253379618, type: 3}
+  - {fileID: -2771282340923969200, guid: 36cacc48f46599944a02a70253379618, type: 3}
+  - {fileID: -137840701171239608, guid: 36cacc48f46599944a02a70253379618, type: 3}
+  - {fileID: -7427231801863996731, guid: 36cacc48f46599944a02a70253379618, type: 3}
+  - {fileID: 850657585258959611, guid: 36cacc48f46599944a02a70253379618, type: 3}
+  - {fileID: -2646593889870166635, guid: 36cacc48f46599944a02a70253379618, type: 3}
+  - {fileID: 1774170741373530486, guid: 36cacc48f46599944a02a70253379618, type: 3}
+  - {fileID: 5309625451326368744, guid: 36cacc48f46599944a02a70253379618, type: 3}
+--- !u!50 &-7679516743832144570
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4991746993297851929}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 6200000, guid: e5ad609785b2fcc4d8377a2266075165, type: 2}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!68 &1930961987685399303
+EdgeCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -95,15 +148,10 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.01, y: 0.01}
-    newSize: {x: 0.01, y: 0.01}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.01, y: 0.01}
   m_EdgeRadius: 0
+  m_Points:
+  - {x: -0.5, y: -0.5}
+  - {x: -0.5, y: 0.5}
+  - {x: 0.5, y: 0.5}
+  - {x: 0.5, y: -0.5}
+  - {x: -0.5, y: -0.5}
