@@ -14,12 +14,12 @@ public class LevelEndTrigger : MonoBehaviour{
         float camHeight = Camera.main.orthographicSize * 2;
         float camWidth = screenAspect * camHeight;
 
-        this.transform.localScale = new Vector3(camWidth * 100, 64);
+        this.transform.localScale = new Vector3(camWidth * 100, 96);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        onTriggerEnterEvent();
+//        onTriggerEnterEvent();
     }
 
 
