@@ -36,17 +36,18 @@ public class LevelManager : Momo.PersistantMonoBehaviourSingleton<LevelManager>
         levelEndTrigger.onTriggerEnterEvent += OnLevelEndTrigger;
 
         // Generate the first level
-        GenerateLevel(20, 20, 2, 4, 1, 4, 4, 50, true);
+        GenerateLevel(15, 20, 2, 4, 1, 3, 4, 50, true);
     }
 
     private void OnLevelEndTrigger()
     {
-        GenerateLevel(20, 12, 2, 4, 1, 4, 4, 50, false);
+        GenerateLevel(15, 12, 2, 4, 1, 3, 4, 50, false);
     }
 
 
-    private void GenerateLevel(int width, int height, int 
-        minBlockWidth, int maxBlockWidth, 
+    private void GenerateLevel(
+        int width, int height, 
+        int minBlockWidth, int maxBlockWidth, 
         int minBlockHeight, int maxBlockHeight, 
         int sectionHeight, int chanceToPlaceBlock, 
         bool floor)
@@ -66,10 +67,10 @@ public class LevelManager : Momo.PersistantMonoBehaviourSingleton<LevelManager>
         // populate the map with platforms
        
         float startY = currentY;
-        for (int i = 0; i < map.GetLength(1); ++i)
+        for (int i = 0; i < map.GetLength(0); ++i)
         {
             float startX = 0.5f;
-            for (int j = 0; j < map.GetLength(0); ++j)
+            for (int j = 0; j < map.GetLength(1); ++j)
             {
                 if (map[i, j] == 1)
                 {

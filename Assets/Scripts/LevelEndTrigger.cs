@@ -20,11 +20,12 @@ public class LevelEndTrigger : MonoBehaviour{
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-//        onTriggerEnterEvent();
+        onTriggerEnterEvent();
     }
 
     public void SetY(float y)
     {
+        Debug.Log(y);
         transform.position = new Vector2(transform.position.x, y);
     }
 

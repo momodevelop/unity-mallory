@@ -22,6 +22,7 @@ public class CharacterController : MonoBehaviour
     private float _moveFactor = 0.0f;
     private int _jumpCounter = 0;
     private bool _isGrounded = false;
+    private int _groundLayerId = 0;
     #endregion
 
     #region Public Variables
@@ -31,6 +32,7 @@ public class CharacterController : MonoBehaviour
     public float jumpTriggerHeight = 0.2f;
     public float moveSpeed = 5.0f;
     public float damping = 0.1f;
+    public string groundLayerName = "";
     #endregion
 
 
@@ -39,6 +41,8 @@ public class CharacterController : MonoBehaviour
         _transform = GetComponent<Transform>();
         _rigidBody = GetComponent<Rigidbody2D>();
         _boxCollider = GetComponent<BoxCollider2D>();
+
+        _groundLayerId = LayerMask.NameToLayer(groundLayerName);
     }
 
 
@@ -81,7 +85,7 @@ public class CharacterController : MonoBehaviour
 
         if(Physics2D.OverlapBox(
                 new Vector2(_boxCollider.transform.position.x, _boxCollider.transform.position.y - _boxCollider.bounds.extents.y),
-                _boxCollider.size, 0.0f, 1 << LayerMask.NameToLayer("Ground")))
+                _boxCollider.size, 0.0f, 1 << _groundLayerId))
         {
 
             _isGrounded = true;
