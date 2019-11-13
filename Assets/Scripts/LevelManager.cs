@@ -85,9 +85,9 @@ public class LevelManager : Momo.PersistantMonoBehaviourSingleton<LevelManager>
 
         float newLevelEndY = currentY + (height / 2);
         currentY += height;
-       
+
         // set the end level box
-        levelEndTrigger.transform.position = new Vector2(levelEndTrigger.transform.position.x, newLevelEndY);
+        levelEndTrigger.SetY(newLevelEndY);
     }
 
 
