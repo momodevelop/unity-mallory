@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Momo;
 
-
-public class LevelManager : Momo.PersistantMonoBehaviourSingleton<LevelManager>
+[RequireComponent(typeof(GameObjectPool))]
+public class LevelManager : PersistantMonoBehaviourSingleton<LevelManager>
 {
 
     #region Drag and Drop
@@ -12,8 +13,7 @@ public class LevelManager : Momo.PersistantMonoBehaviourSingleton<LevelManager>
     [SerializeField]
     public LevelEndTrigger levelEndTrigger;
 
-    [SerializeField]
-    Camera camera = null;
+
     #endregion
 
     #region Constants
@@ -23,25 +23,26 @@ public class LevelManager : Momo.PersistantMonoBehaviourSingleton<LevelManager>
     #endregion
 
     float currentY = 0.5f;
+    GameObjectPool obstaclePool;
 
     // Start is called before the first frame update
     void Start()
     {
         DestroyIfNull(obstaclePrefab);
         DestroyIfNull(levelEndTrigger);
-        DestroyIfNull(camera);
 
+        obstaclePool = GetComponent<GameObjectPool>();
 
         // Observe level end trigger box event
         levelEndTrigger.onTriggerEnterEvent += OnLevelEndTrigger;
 
         // Generate the first level
-        GenerateLevel(15, 20, 2, 4, 1, 3, 4, 50, true);
+        GenerateLevel(16, 20, 2, 4, 1, 3, 4, 50, true);
     }
 
     private void OnLevelEndTrigger()
     {
-        GenerateLevel(15, 12, 2, 4, 1, 3, 4, 50, false);
+        GenerateLevel(16, 12, 2, 4, 1, 3, 4, 50, false);
     }
 
 
@@ -74,9 +75,12 @@ public class LevelManager : Momo.PersistantMonoBehaviourSingleton<LevelManager>
             {
                 if (map[i, j] == 1)
                 {
-                    GameObject obj = Instantiate(obstaclePrefab, new Vector2(startX, startY), Quaternion.identity);
-                    SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
-                    obj.transform.localScale = new Vector2(1, 1);
+                    GameObject obj = obstaclePool.Spawn();
+                    if (obj != null)
+                    {
+                        obj.transform.position = new Vector2(startX, startY);
+                        obj.transform.localScale = new Vector2(1, 1);
+                    }
                 }
                 startX += 1.0f;
             }

@@ -126,6 +126,26 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5691468701697568247}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &341286526 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5691468702493350448, guid: 9caf2f77a950f8442a0f602180940c59,
+    type: 3}
+  m_PrefabInstance: {fileID: 5691468701697568247}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &341286527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 341286526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2240d170a3acdbb45a66b7bb2d607090, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 4991746993297851929, guid: ebaaa8dbb7b9918408fe5491b7faa47d, type: 3}
+  _capacity: 100
 --- !u!1 &973333673
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,7 +462,7 @@ GameObject:
   - component: {fileID: 1407300194}
   - component: {fileID: 1407300197}
   - component: {fileID: 1407300195}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cleaner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -461,8 +481,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5b9d7f5c097c744da7bcafcdfdf65e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundLayerName: Ground
-  playerLayerName: Player
 --- !u!61 &1407300195
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -473,7 +491,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
