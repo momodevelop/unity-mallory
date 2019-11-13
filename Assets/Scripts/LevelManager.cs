@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using Momo;
 
-[RequireComponent(typeof(GameObjectPool))]
 public class LevelManager : PersistantMonoBehaviourSingleton<LevelManager>
 {
 
@@ -31,7 +30,7 @@ public class LevelManager : PersistantMonoBehaviourSingleton<LevelManager>
         DestroyIfNull(obstaclePrefab);
         DestroyIfNull(levelEndTrigger);
 
-        obstaclePool = GetComponent<GameObjectPool>();
+        obstaclePool = new GameObjectPool(obstaclePrefab, 320);
 
         // Observe level end trigger box event
         levelEndTrigger.onTriggerEnterEvent += OnLevelEndTrigger;

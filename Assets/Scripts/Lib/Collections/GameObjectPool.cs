@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Momo
 {
-    class GameObjectPool : MonoBehaviour
+    class GameObjectPool
     {
         public class Poolable : MonoBehaviour
         {
@@ -16,10 +16,9 @@ namespace Momo
         }
 
         
-        [SerializeField] private GameObject _prefab = null;
+        private GameObject _prefab = null;
         // TODO: For pools that are growable.
         // [SerializeField] private bool _growable;
-        [SerializeField] private int _capacity = 0;
 
         Stack<int> _freeIndices;
         List<GameObject> _pool;
@@ -28,13 +27,14 @@ namespace Momo
         public int TotalGameObjects { get => _pool.Count; }
         public int FreeGameObjects { get => _freeIndices.Count; }
 
-        private void Start()
+        public GameObjectPool(GameObject prefab, int capacity)
         {
+            _prefab = prefab;
             _pool = new List<GameObject>();
             _freeIndices = new Stack<int>();
-            for (int i = 0; i < _capacity; ++i)
+            for (int i = 0; i < capacity; ++i)
             {
-                GameObject obj = (GameObject)Instantiate(_prefab);
+                GameObject obj = (GameObject)Object.Instantiate(_prefab);
                 obj.SetActive(false);
 
                 // Add our poolable script that gives helper functions
