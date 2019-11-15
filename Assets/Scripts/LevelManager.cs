@@ -22,7 +22,7 @@ public class LevelManager : PersistantMonoBehaviourSingleton<LevelManager>
     #endregion
 
     float currentY = 0.5f;
-    GameObjectPool obstaclePool;
+    Simpool obstaclePool;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +30,7 @@ public class LevelManager : PersistantMonoBehaviourSingleton<LevelManager>
         DestroyIfNull(obstaclePrefab);
         DestroyIfNull(levelEndTrigger);
 
-        obstaclePool = new GameObjectPool(obstaclePrefab, 320);
+        obstaclePool = new Simpool(obstaclePrefab, 320);
 
         // Observe level end trigger box event
         levelEndTrigger.onTriggerEnterEvent += OnLevelEndTrigger;
@@ -74,7 +74,7 @@ public class LevelManager : PersistantMonoBehaviourSingleton<LevelManager>
             {
                 if (map[i, j] == 1)
                 {
-                    GameObject obj = obstaclePool.Spawn();
+                    GameObject obj = obstaclePool.Borrow();
                     if (obj != null)
                     {
                         obj.transform.position = new Vector2(startX, startY);

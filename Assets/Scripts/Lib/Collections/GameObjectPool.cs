@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace Momo
 {
-    class GameObjectPool
+    class Simpool
     {
-        public class Poolable : MonoBehaviour
+        public class Simpoolable : MonoBehaviour
         {
-            internal GameObjectPool parent = null;
+            internal Simpool parent = null;
             internal int index = -1;
             public void Return()
             {
@@ -27,7 +27,7 @@ namespace Momo
         public int TotalGameObjects { get => _pool.Count; }
         public int FreeGameObjects { get => _freeIndices.Count; }
 
-        public GameObjectPool(GameObject prefab, int capacity)
+        public Simpool(GameObject prefab, int capacity)
         {
             _prefab = prefab;
             _pool = new List<GameObject>();
@@ -39,7 +39,7 @@ namespace Momo
 
                 // Add our poolable script that gives helper functions
                 // and help us identify if the game object belongs to us.
-                Poolable poolable = obj.AddComponent<Poolable>();
+                Simpoolable poolable = obj.AddComponent<Simpoolable>();
                 poolable.index = i;
                 poolable.parent = this;
 
@@ -49,7 +49,7 @@ namespace Momo
             }
         }
 
-        public GameObject Spawn()
+        public GameObject Borrow()
         {
             if (_freeIndices.Count == 0)
             {
@@ -71,8 +71,8 @@ namespace Momo
             if (obj == null)
                 return;
 
-            // check if it has the Poolable component and if the parent is us
-            Poolable poolableComponent = obj.GetComponent<Poolable>();
+            // check if it has the Simpoolable component and if the parent is us
+            Simpoolable poolableComponent = obj.GetComponent<Simpoolable>();
             if (poolableComponent && poolableComponent.parent == this)
             {
                 obj.SetActive(false);

@@ -16,10 +16,10 @@ public class ObstacleClean : MonoBehaviour
     {
         if (collision.gameObject.layer == _cleanerLayerId)
         {
-            GameObjectPool.Poolable poolable = GetComponent<GameObjectPool.Poolable>();
-            if (poolable)
+            Simpool.Simpoolable Simpoolable = GetComponent<Simpool.Simpoolable>();
+            if (Simpoolable)
             {
-                this.GetComponent<Momo.GameObjectPool.Poolable>().Return();
+                this.GetComponent<Momo.Simpool.Simpoolable>().Return();
             }
         }
     }
