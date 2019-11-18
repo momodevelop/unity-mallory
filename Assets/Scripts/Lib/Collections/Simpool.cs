@@ -11,7 +11,7 @@ namespace Momo
             internal int index = -1;
             public void Return()
             {
-                parent.Despawn(gameObject);
+                parent.Return(this);
             }
         }
 
@@ -66,19 +66,18 @@ namespace Momo
         }
 
         // NOTE: I would love to pass a ref to null the actual Reference Type but alas I can't...I think.
-        public void Despawn(GameObject obj)
+        public void Return(Simpoolable obj)
         {
             if (obj == null)
                 return;
 
             // check if it has the Simpoolable component and if the parent is us
-            Simpoolable poolableComponent = obj.GetComponent<Simpoolable>();
-            if (poolableComponent && poolableComponent.parent == this)
+            if (obj.parent == this)
             {
-                obj.SetActive(false);
+                obj.gameObject.SetActive(false);
 
                 // Registers itself back into the 
-                _freeIndices.Push(poolableComponent.index);
+                _freeIndices.Push(obj.index);
             }
             
         }
