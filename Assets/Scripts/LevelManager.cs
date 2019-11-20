@@ -10,7 +10,7 @@ public class LevelManager : PersistantMonoBehaviourSingleton<LevelManager>
     #region Drag and Drop
     public GameObject obstaclePrefab;
     [SerializeField]
-    public GenerateLevelTrigger levelEndTrigger;
+    public LevelEndTrigger levelEndTrigger;
 
 
     #endregion
