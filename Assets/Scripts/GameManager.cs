@@ -1,19 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameManager : Momo.PersistantMonoBehaviourSingleton<GameManager>
 {
     public PlayerEvents playerEvents;
-    // Start is called before the first frame update
+    public RectTransform menuTransform;
+    public GameState gameState;
+    
+    private bool isPaused = false;
     void Start()
     {
-        if (playerEvents == null)
-            Destroy(this.gameObject);
-        playerEvents.eventPlayerDead += onPlayerDeath;
+        Controller.Instance.GetControls().Player.Pause.performed += OnPause;
+        playerEvents.eventPlayerDead += OnPlayerDeath;
     }
 
-    void onPlayerDeath()
+    private void OnPause(InputAction.CallbackContext context)
+    {
+        if (!isPaused)
+            gameState.Pause();
+        else
+            gameState.Unpause();
+
+        isPaused = !isPaused;
+    }
+
+    void OnPlayerDeath()
     {
         //
     }
@@ -21,6 +34,6 @@ public class GameManager : Momo.PersistantMonoBehaviourSingleton<GameManager>
     // Update is called once per frame
     void Update()
     {
-        
+        //menuTransform.position += new Vector3(0, 1);
     }
 }

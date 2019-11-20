@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelEndTrigger : MonoBehaviour{
+public class GenerateLevelTrigger : MonoBehaviour{
 
     public event Action onTriggerEnterEvent;
 
