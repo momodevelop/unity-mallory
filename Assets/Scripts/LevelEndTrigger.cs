@@ -25,6 +25,7 @@ public class LevelEndTrigger : MonoBehaviour{
 
     public void SetY(float y)
     {
+        Debug.Log(y);
         transform.position = new Vector2(transform.position.x, y);
     }
 
