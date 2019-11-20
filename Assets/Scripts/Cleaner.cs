@@ -12,12 +12,26 @@ public class Cleaner : MonoBehaviour
         float camWidth = screenAspect * camHeight;
 
         this.transform.localScale = new Vector3(camWidth * 100, 96);
+
+        GameManager.I.PauseEvent += Pause;
+        GameManager.I.UnpauseEvent += Unpause;
+
     }
 
     // Update is called once per frame
     void Update()
     {
         this.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y - Camera.main.orthographicSize - 1.5f);
+    }
+
+    public void Pause()
+    {
+        this.gameObject.SetActive(false);
+    }
+
+    public void Unpause()
+    {
+        this.gameObject.SetActive(true);
     }
 
 }

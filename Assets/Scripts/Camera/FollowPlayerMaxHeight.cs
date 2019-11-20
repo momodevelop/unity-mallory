@@ -2,18 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FollowPlayerMaxHeight : MonoBehaviour
+public class GameCamera : MonoBehaviour
 {
-    [SerializeField]
-    Transform player = null;
-    
-    // Update is called once per frame
-    void Update()
-    {
-        if (player.position.y > this.transform.position.y)
-        {
-            this.transform.position = new Vector3(this.transform.position.x, player.position.y, this.transform.position.z);
-        }
+    Vector3 savedPosition;
 
+    private void Start()
+    {
+        savedPosition = transform.position;
+    }
+    void SaveCurrentPosition()
+    {
+        savedPosition = this.transform.position;
+    }
+
+    Vector3 GetSavedPosition()
+    {
+        return savedPosition;
     }
 }

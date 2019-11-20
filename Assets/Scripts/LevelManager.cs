@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using Momo;
 
-public class LevelManager : PersistantMonoBehaviourSingleton<LevelManager>
+public class LevelManager : MonoBehaviour
 {
 
     #region Drag and Drop
@@ -37,6 +37,9 @@ public class LevelManager : PersistantMonoBehaviourSingleton<LevelManager>
 
         // Generate the first level
         GenerateLevel(16, 20, 2, 4, 1, 3, 4, 50, true);
+
+        GameManager.I.PauseEvent += Pause;
+        GameManager.I.UnpauseEvent += Unpause;
     }
 
     private void OnLevelEndTrigger()
@@ -46,10 +49,10 @@ public class LevelManager : PersistantMonoBehaviourSingleton<LevelManager>
 
 
     private void GenerateLevel(
-        int width, int height, 
-        int minBlockWidth, int maxBlockWidth, 
-        int minBlockHeight, int maxBlockHeight, 
-        int sectionHeight, int chanceToPlaceBlock, 
+        int width, int height,
+        int minBlockWidth, int maxBlockWidth,
+        int minBlockHeight, int maxBlockHeight,
+        int sectionHeight, int chanceToPlaceBlock,
         bool floor)
     {
         int[,] map = LevelGenerator.GenerateLevel(
@@ -65,7 +68,7 @@ public class LevelManager : PersistantMonoBehaviourSingleton<LevelManager>
         );
 
         // populate the map with platforms
-       
+
         float startY = currentY;
         for (int i = 0; i < map.GetLength(0); ++i)
         {
@@ -101,6 +104,14 @@ public class LevelManager : PersistantMonoBehaviourSingleton<LevelManager>
             Destroy(this);
     }
 
+    public void Pause()
+    {
+        this.gameObject.SetActive(false);
+    }
 
+    public void Unpause()
+    {
+        this.gameObject.SetActive(true);
+    }
 }
 

@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelEndTrigger : MonoBehaviour{
+public class LevelEndTrigger : MonoBehaviour
+{
 
     public event Action onTriggerEnterEvent;
 
@@ -16,6 +17,9 @@ public class LevelEndTrigger : MonoBehaviour{
 
         this.transform.position = new Vector3(Camera.main.transform.position.x, 0.0f);
         this.transform.localScale = new Vector3(camWidth * 100, 96);
+
+        GameManager.I.PauseEvent += Pause;
+        GameManager.I.UnpauseEvent += Unpause;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -25,10 +29,16 @@ public class LevelEndTrigger : MonoBehaviour{
 
     public void SetY(float y)
     {
-        Debug.Log(y);
         transform.position = new Vector2(transform.position.x, y);
     }
 
+    public void Pause()
+    {
+        this.gameObject.SetActive(false);
+    }
 
-   
+    public void Unpause()
+    {
+        this.gameObject.SetActive(true);
+    }
 }
