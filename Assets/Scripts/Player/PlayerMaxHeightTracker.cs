@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMakeCameraFollowMaxHeight : MonoBehaviour
+public class PlayerMaxHeightTracker : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public delegate void UpdateHeightDelegate(float height);
+    public event UpdateHeightDelegate UpdateHeightEvent;
 
     // Update is called once per frame
     void Update()
