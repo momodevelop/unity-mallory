@@ -2,9 +2,9 @@
 using UnityEngine;
 
 
-public partial class GameManager : Momo.PersistantMonoBehaviourSingleton<GameManager>
+public partial class GameManager : MonoBehaviour
 {
-    class MenuTransitionToGameState : IState
+    internal class MenuTransitionToGameState : IState
     {
         private MenuTransitionToGameState() { }
         public static MenuTransitionToGameState I { get; } = new MenuTransitionToGameState();

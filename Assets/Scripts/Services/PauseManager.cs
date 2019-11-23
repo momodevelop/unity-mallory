@@ -11,9 +11,7 @@ public class PauseManager
 
     bool pause = false;
 
-    public static PauseManager I { get; } = new PauseManager();
-
-    private PauseManager() {
+    public PauseManager() {
         Controller.Instance.GetControls().Player.Pause.performed += OnPause;
     }
 

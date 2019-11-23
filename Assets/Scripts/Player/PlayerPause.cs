@@ -10,8 +10,8 @@ public class PlayerPause : MonoBehaviour
 
     private void Start()
     {
-        GameManager.I.PauseEvent += Pause;
-        GameManager.I.UnpauseEvent += Unpause;
+        Services.pauseManager.PauseEvent += Pause;
+        Services.pauseManager.UnpauseEvent += Unpause;
     }
 
     public void Pause()

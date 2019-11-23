@@ -38,8 +38,8 @@ public class LevelManager : MonoBehaviour
         // Generate the first level
         GenerateLevel(16, 20, 2, 4, 1, 3, 4, 50, true);
 
-        GameManager.I.PauseEvent += Pause;
-        GameManager.I.UnpauseEvent += Unpause;
+        Services.pauseManager.PauseEvent += Pause;
+        Services.pauseManager.UnpauseEvent += Unpause;
     }
 
     private void OnLevelEndTrigger()
