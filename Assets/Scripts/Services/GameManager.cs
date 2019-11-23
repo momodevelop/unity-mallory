@@ -1,8 +1,12 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public partial class GameManager : MonoBehaviour
+public partial class GameManager : Momo.PersistantMonoBehaviourSingleton<GameManager>
 {
+    public event Action PauseGameEvent;
+    public event Action UnpauseGameEvent;
+
     IState nextState = null;
     IState currentState = null;
 
@@ -10,8 +14,17 @@ public partial class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Services.pauseManager.PauseEvent += Pause;
-        Services.player.GetComponent<PlayerEvents>().ReachedNewHeightEvent += PlayerReachedNewHeight;
+        Controller.Instance.GetControls().Player.Pause.performed += OnPause;
+        GameObject.Find("Player").GetComponent<PlayerEvents>().ReachedNewHeightEvent += PlayerReachedNewHeight;
+        ChangeState(GameState.I);
+    }
+
+    private void OnPause(InputAction.CallbackContext obj)
+    {
+        if (currentState == GameState.I)
+            ChangeState(GameTransitionToMenuState.I);
+        else if (currentState == MenuState.I)
+            ChangeState(MenuTransitionToGameState.I);
     }
 
     private void PlayerReachedNewHeight(float height)
@@ -42,10 +55,5 @@ public partial class GameManager : MonoBehaviour
         nextState = state;
     }
        
-    void Pause()
-    {
-        ChangeState(GameTransitionToMenuState.I);
-    }
-
 
 }

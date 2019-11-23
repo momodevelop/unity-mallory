@@ -13,8 +13,8 @@ public class Cleaner : MonoBehaviour
 
         this.transform.localScale = new Vector3(camWidth * 100, 96);
 
-       Services.pauseManager.PauseEvent += Pause;
-       Services.pauseManager.UnpauseEvent += Unpause;
+        GameManager.I.PauseGameEvent += Pause;
+        GameManager.I.UnpauseGameEvent += Unpause;
 
     }
 

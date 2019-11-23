@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public partial class GameManager : MonoBehaviour
+public partial class GameManager : Momo.PersistantMonoBehaviourSingleton<GameManager>
 {
     interface IState
     {

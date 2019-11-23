@@ -18,8 +18,8 @@ public class LevelEndTrigger : MonoBehaviour
         this.transform.position = new Vector3(Camera.main.transform.position.x, 0.0f);
         this.transform.localScale = new Vector3(camWidth * 100, 96);
 
-        Services.pauseManager.PauseEvent += Pause;
-        Services.pauseManager.UnpauseEvent += Unpause;
+        GameManager.I.PauseGameEvent += Pause;
+        GameManager.I.UnpauseGameEvent += Unpause;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
