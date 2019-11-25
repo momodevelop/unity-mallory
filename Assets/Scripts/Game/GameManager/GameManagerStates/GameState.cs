@@ -5,12 +5,14 @@ using UnityEngine;
 
 public partial class GameManager : Momo.PersistantMonoBehaviourSingleton<GameManager>
 {
-    internal class MenuState : IState
+    internal class GameState : IState
     {
-        private MenuState() { }
-        public static MenuState I { get; } = new MenuState();
+        private GameState() { }
+        public static GameState I { get; } = new GameState();
+
         public void Enter(GameManager gm)
         {
+            gm?.HideMenuEvent.Invoke();
         }
 
         public void Exit(GameManager gm)

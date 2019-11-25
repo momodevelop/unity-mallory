@@ -4,11 +4,17 @@ using UnityEngine.InputSystem;
 
 public partial class GameManager : Momo.PersistantMonoBehaviourSingleton<GameManager>
 {
+    #region Events
     public event Action PauseGameEvent;
     public event Action UnpauseGameEvent;
+    public event Action ShowMenuEvent;
+    public event Action HideMenuEvent;
+    #endregion
 
+    #region State Management
     IState nextState = null;
     IState currentState = null;
+    #endregion
 
     float playerMaxHeight = 0.0f;
 
