@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelEndTrigger : MonoBehaviour
+public class LevelEndTrigger : MonoBehaviour, IPauseable
 {
 
     public event Action onTriggerEnterEvent;
@@ -13,9 +13,6 @@ public class LevelEndTrigger : MonoBehaviour
     {
         this.transform.position = new Vector3(Camera.main.transform.position.x, 0.0f);
         this.transform.localScale = new Vector3(Utils.GetCameraWidthPixels(), Utils.GetPixelPerUnit());
-
-        GameManager.I.PauseGameEvent += Pause;
-        GameManager.I.UnpauseGameEvent += Unpause;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

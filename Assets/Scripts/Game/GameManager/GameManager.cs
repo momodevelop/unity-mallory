@@ -5,12 +5,9 @@ using UnityEngine.InputSystem;
 
 public partial class GameManager : Momo.PersistantMonoBehaviourSingleton<GameManager>
 {
-    #region Events
-    public event Action PauseGameEvent;
-    public event Action UnpauseGameEvent;
-    public event Action ShowMenuEvent;
-    public event Action HideMenuEvent;
-    #endregion
+
+    Game game;
+    Menu menu;
 
     #region State Management
     IState nextState = null;
@@ -18,9 +15,7 @@ public partial class GameManager : Momo.PersistantMonoBehaviourSingleton<GameMan
 
     enum StatesEnum {
         GAME,
-        GAME_TRANSITION_TO_MENU,
         MENU,
-        MENU_TRANSITION_TO_GAME,
         MAX_STATES
     }
 
@@ -28,24 +23,18 @@ public partial class GameManager : Momo.PersistantMonoBehaviourSingleton<GameMan
 
     #endregion
 
-    float playerMaxHeight = 0.0f;
-
     private void Start()
     {
         // Init dictionary
         stateTable.Add(StatesEnum.GAME, new GameState(this));
-        stateTable.Add(StatesEnum.GAME_TRANSITION_TO_MENU, new GameTransitionToMenuState(this));
         stateTable.Add(StatesEnum.MENU, new MenuState(this));
-        stateTable.Add(StatesEnum.MENU_TRANSITION_TO_GAME, new MenuTransitionToGameState(this));
 
-        GameObject.Find("Player").GetComponent<PlayerEvents>().ReachedNewHeightEvent += PlayerReachedNewHeight;
-        ChangeState(StatesEnum.GAME);
+        game = GameObject.Find("Game").GetComponent<Game>();
+        menu = GameObject.Find("PauseMenu").GetComponent<Menu>();
+
+        ChangeState(StatesEnum.MENU);
     }
 
-    private void PlayerReachedNewHeight(float height)
-    {
-        playerMaxHeight = height;
-    }
 
     // Update is called once per frame
     void Update()

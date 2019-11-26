@@ -2,34 +2,53 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
-    public event Action IntroDoneEvent;
-    public event Action OutroDoneEvent;
+
+    float timer = 0.1f;
+    float duration = 0.1f;
+    float increment = 1.0f;
+
+    CanvasRenderer[] canvasRenderers;
 
     // Start is called before the first frame update
     void Start()
     {
-        GameManager.I.ShowMenuEvent += OnShowMenu;
-        GameManager.I.HideMenuEvent += OnHideMenu;
+        canvasRenderers = GetComponentsInChildren<CanvasRenderer>();
 
-        this.gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+
+    private void Update()
     {
-        
+        timer += increment * Time.deltaTime;
+        if (timer >= duration)
+            timer = duration;
+        if (timer <= 0.0f)
+            timer = 0.0f;
+
+        foreach(CanvasRenderer cr in canvasRenderers) 
+            cr.SetAlpha(Mathf.Lerp(0.0f, 1.0f, timer / duration));
+
     }
 
-    void OnShowMenu()
+    public void ShowMenu()
     {
-        this.gameObject.SetActive(true);
+        increment = -increment;
     }
 
-    void OnHideMenu()
+    
+
+    public void HideMenu()
     {
-        this.gameObject.SetActive(false);
+        increment = -increment;
     }
+
+    
+
+
+
 }

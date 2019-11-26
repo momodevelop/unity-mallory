@@ -2,16 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cleaner : MonoBehaviour
+public class Cleaner : MonoBehaviour, IPauseable
 {
     // Start is called before the first frame update
     void Start()
     {
         this.transform.localScale = new Vector3(Utils.GetCameraWidthPixels(), Utils.GetPixelPerUnit());
-
-        GameManager.I.PauseGameEvent += Pause;
-        GameManager.I.UnpauseGameEvent += Unpause;
-
     }
 
     // Update is called once per frame

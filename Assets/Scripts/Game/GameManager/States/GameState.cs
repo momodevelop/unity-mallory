@@ -16,6 +16,7 @@ public partial class GameManager : Momo.PersistantMonoBehaviourSingleton<GameMan
         {
            
             Controller.Instance.GetControls().Player.Pause.performed += OnPause;
+            gm.game.Unpause();
         }
 
         public void Exit()
@@ -29,7 +30,8 @@ public partial class GameManager : Momo.PersistantMonoBehaviourSingleton<GameMan
 
         private void OnPause(InputAction.CallbackContext obj)
         {
-            gm.ChangeState(StatesEnum.GAME_TRANSITION_TO_MENU);
+            gm.menu.ShowMenu();
+            gm.ChangeState(StatesEnum.MENU);
         }
 
 

@@ -4,14 +4,12 @@ using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerPause : MonoBehaviour
+public class PlayerPause : MonoBehaviour, IPauseable
 {
     Vector3 oldVelocity;
 
     private void Start()
     {
-        GameManager.I.PauseGameEvent += Pause;
-        GameManager.I.UnpauseGameEvent += Unpause;
     }
 
     public void Pause()

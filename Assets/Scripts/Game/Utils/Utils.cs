@@ -36,4 +36,6 @@ public class Utils
         return (float)Screen.width / (float)Screen.height;
 
     }
+
+    public static readonly float menuTransitionTime = 0.25f;
 }
