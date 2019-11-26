@@ -4,8 +4,8 @@ public partial class GameManager : Momo.PersistantMonoBehaviourSingleton<GameMan
 {
     interface IState
     {
-        void Enter(GameManager gm);
-        void Run(GameManager gm);
-        void Exit(GameManager gm);
+        void Enter();
+        void Run();
+        void Exit();
     }
 }

@@ -6,33 +6,37 @@ public partial class GameManager : Momo.PersistantMonoBehaviourSingleton<GameMan
 {
     internal class MenuTransitionToGameState : IState
     {
+
         private Vector3 start;
         private Vector3 target;
         private float timer = 0.0f;
-        private readonly float duration = 0.5f;
+        private readonly float duration = 0.25f;
 
-        private MenuTransitionToGameState() { }
-        public static MenuTransitionToGameState I { get; } = new MenuTransitionToGameState();
-        public void Enter(GameManager gm)
+        GameManager gm;
+        public MenuTransitionToGameState(GameManager gm)
+        {
+            this.gm = gm;
+        }
+
+        public void Enter()
         {
             start = Camera.main.transform.position;
             target = new Vector3(start.x, gm.playerMaxHeight, start.z);
             timer = 0.0f;           
         }
 
-        public void Exit(GameManager gm)
+        public void Exit()
         {
             gm.UnpauseGameEvent?.Invoke();
         }
 
-        public void Run(GameManager gm)
+        public void Run()
         {
             timer += Time.deltaTime;
             Camera.main.transform.position = Vector3.Lerp(start, target, timer / duration);
             if (timer >= duration)
             {
-                // there is no menu state
-                gm.ChangeState(GameState.I);
+                gm.ChangeState(StatesEnum.GAME);
             }
         }
     }

@@ -1,9 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Menu : MonoBehaviour
 {
+    public event Action IntroDoneEvent;
+    public event Action OutroDoneEvent;
+
     // Start is called before the first frame update
     void Start()
     {
