@@ -5,9 +5,12 @@ using UnityEngine.InputSystem;
 
 public partial class GameManager : Momo.PersistantMonoBehaviourSingleton<GameManager>
 {
+    [SerializeField]
+    MainGame game = null;
 
-    Game game;
-    Menu menu;
+    [SerializeField]
+    PauseMenu menu = null;
+
     int score;
 
     #region State Management
@@ -29,9 +32,6 @@ public partial class GameManager : Momo.PersistantMonoBehaviourSingleton<GameMan
         // Init dictionary
         stateTable.Add(StatesEnum.GAME, new GameState(this));
         stateTable.Add(StatesEnum.MENU, new MenuState(this));
-
-        game = GameObject.Find("Game").GetComponent<Game>();
-        menu = GameObject.Find("PauseMenu").GetComponent<Menu>();
 
         ChangeState(StatesEnum.MENU);
     }

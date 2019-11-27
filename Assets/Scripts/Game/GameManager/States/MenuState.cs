@@ -14,28 +14,15 @@ public partial class GameManager : Momo.PersistantMonoBehaviourSingleton<GameMan
         public void Enter()
         {
             Controller.Instance.GetControls().Player.Pause.performed += OnPause;
-            Controller.Instance.GetControls().Player.Up.performed += OnUp;
-            Controller.Instance.GetControls().Player.Down.performed += OnDown;
             Controller.Instance.GetControls().Player.Jump.performed += OnConfirm;
             gm.game.Pause();
         }
 
-        private void OnDown(InputAction.CallbackContext obj)
-        {
-            gm.menu.OnDown();
-        }
-
-        private void OnUp(InputAction.CallbackContext obj)
-        {
-            gm.menu.OnUp();
-        }
 
         public void Exit()
         {
-           
+        
             Controller.Instance.GetControls().Player.Pause.performed -= OnPause;
-            Controller.Instance.GetControls().Player.Up.performed -= OnUp;
-            Controller.Instance.GetControls().Player.Down.performed -= OnDown;
             Controller.Instance.GetControls().Player.Jump.performed -= OnConfirm;
         }
 

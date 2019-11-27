@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class Menu : MonoBehaviour
+public class PauseMenu : MonoBehaviour
 {
 
     float timer = 0.1f;
@@ -34,30 +34,39 @@ public class Menu : MonoBehaviour
         if (timer <= 0.0f)
             timer = 0.0f;
 
-        foreach(CanvasRenderer cr in canvasRenderers) 
+        foreach (CanvasRenderer cr in canvasRenderers)
             cr.SetAlpha(Mathf.Lerp(0.0f, 1.0f, timer / duration));
 
 
-       
+
     }
 
     public void ShowMenu()
     {
         increment = -increment;
         score.text = String.Format("{0}", GameManager.I.GetScore());
+        selector.enabled = true;
+
+        Controller.Instance.GetControls().Player.Up.performed += OnUp;
+        Controller.Instance.GetControls().Player.Down.performed += OnDown;
+
     }
 
     public void HideMenu()
     {
+        Controller.Instance.GetControls().Player.Up.performed -= OnUp;
+        Controller.Instance.GetControls().Player.Down.performed -= OnDown;
+
         increment = -increment;
+        selector.enabled = false;
     }
-    
-    public void OnUp()
+
+    public void OnUp(InputAction.CallbackContext obj)
     {
         selector.SelectionUp();
     }
 
-    public void OnDown()
+    public void OnDown(InputAction.CallbackContext obj)
     {
         selector.SelectionDown();
     }

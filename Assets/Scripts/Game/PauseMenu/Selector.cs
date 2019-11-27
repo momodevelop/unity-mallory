@@ -54,6 +54,7 @@ public class Selector : MonoBehaviour
             cr.SetColor(Color.Lerp(startColor, targetColor, timer/duration));
             timer += Time.deltaTime;
         }
+
     }
 
     public void SelectionUp()

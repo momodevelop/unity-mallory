@@ -20,8 +20,7 @@ public class CharacterController : MonoBehaviour
    // private StateEnum _state = 0;
     private Vector3 _currentVelocity = Vector3.zero;
     private float _moveFactor = 0.0f;
-    public int _jumpCounter = 0;
-    private bool _isGrounded = false;
+    private int _jumpCounter = 0;
     private int _groundLayerId = 0;
     #endregion
 
@@ -74,7 +73,6 @@ public class CharacterController : MonoBehaviour
 
     private void ResolveGrounded()
     {
-        _isGrounded = false;
         Bounds bounds = new Bounds(
             new Vector3(_boxCollider.transform.position.x, _boxCollider.transform.position.y - _boxCollider.bounds.extents.y),
             new Vector3(jumpTriggerWidth, jumpTriggerHeight)
@@ -88,7 +86,6 @@ public class CharacterController : MonoBehaviour
                 _boxCollider.size, 0.0f, 1 << _groundLayerId))
         {
 
-            _isGrounded = true;
             _jumpCounter = 1;
         }
     }
