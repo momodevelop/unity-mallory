@@ -13,7 +13,7 @@ public class PlayerMoveCameraToHeight : MonoBehaviour
         if (this.transform.position.y > Camera.main.transform.position.y)
         {
             Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, this.transform.position.y, Camera.main.transform.position.z);
-
+            GameManager.I.AddScore();
         }
     }
 }

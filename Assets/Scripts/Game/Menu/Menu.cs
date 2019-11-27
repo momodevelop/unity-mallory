@@ -15,12 +15,14 @@ public class Menu : MonoBehaviour
     CanvasRenderer[] canvasRenderers;
 
     Selector selector;
+    Text score;
 
     // Start is called before the first frame update
     void Start()
     {
         canvasRenderers = GetComponentsInChildren<CanvasRenderer>();
         selector = GameObject.Find("Selector").GetComponent<Selector>();
+        score = GameObject.Find("Score").GetComponent<Text>();
     }
 
 
@@ -35,11 +37,14 @@ public class Menu : MonoBehaviour
         foreach(CanvasRenderer cr in canvasRenderers) 
             cr.SetAlpha(Mathf.Lerp(0.0f, 1.0f, timer / duration));
 
+
+       
     }
 
     public void ShowMenu()
     {
         increment = -increment;
+        score.text = String.Format("{0}", GameManager.I.GetScore());
     }
 
     public void HideMenu()

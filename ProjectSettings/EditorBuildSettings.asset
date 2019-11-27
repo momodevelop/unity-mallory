@@ -8,6 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Splash.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/JumpMan.unity
+    guid: 2a258a0a3a012eb498a298997e7cdbf5
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 97dfff64fe2d095429d7ff24a3fc9cb0,
       type: 2}

@@ -8,6 +8,7 @@ public partial class GameManager : Momo.PersistantMonoBehaviourSingleton<GameMan
 
     Game game;
     Menu menu;
+    int score;
 
     #region State Management
     IState nextState = null;
@@ -59,5 +60,14 @@ public partial class GameManager : Momo.PersistantMonoBehaviourSingleton<GameMan
         nextState = stateTable[state];
     }
        
+    public void AddScore()
+    {
+        ++score;
+    }
+
+    public int GetScore()
+    {
+        return score;
+    }
 
 }
