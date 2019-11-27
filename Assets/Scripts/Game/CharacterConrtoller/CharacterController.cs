@@ -20,7 +20,7 @@ public class CharacterController : MonoBehaviour
    // private StateEnum _state = 0;
     private Vector3 _currentVelocity = Vector3.zero;
     private float _moveFactor = 0.0f;
-    private int _jumpCounter = 0;
+    public int _jumpCounter = 0;
     private bool _isGrounded = false;
     private int _groundLayerId = 0;
     #endregion
@@ -89,16 +89,12 @@ public class CharacterController : MonoBehaviour
         {
 
             _isGrounded = true;
+            _jumpCounter = 1;
         }
     }
 
     public void Jump()
     {
-        if (_isGrounded)
-        {
-            _jumpCounter = 0;
-        }
-
         if (_jumpCounter < jumpAmount)
         {
             _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, jumpForce);

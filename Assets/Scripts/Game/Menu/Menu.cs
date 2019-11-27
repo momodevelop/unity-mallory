@@ -14,11 +14,13 @@ public class Menu : MonoBehaviour
 
     CanvasRenderer[] canvasRenderers;
 
+    Selector selector;
+
     // Start is called before the first frame update
     void Start()
     {
         canvasRenderers = GetComponentsInChildren<CanvasRenderer>();
-
+        selector = GameObject.Find("Selector").GetComponent<Selector>();
     }
 
 
@@ -40,15 +42,23 @@ public class Menu : MonoBehaviour
         increment = -increment;
     }
 
-    
-
     public void HideMenu()
     {
         increment = -increment;
     }
-
     
+    public void OnUp()
+    {
+        selector.SelectionUp();
+    }
 
+    public void OnDown()
+    {
+        selector.SelectionDown();
+    }
 
-
+    public Selector.Options GetSelectedIndex()
+    {
+        return selector.GetSelectedIndex();
+    }
 }

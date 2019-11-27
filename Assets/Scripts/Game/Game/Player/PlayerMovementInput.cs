@@ -25,6 +25,15 @@ public class PlayerMovementInput : MonoBehaviour
         Controller.Instance.GetControls().Player.Jump.performed += OnJumpUp;
     }
 
+    private void OnDestroy()
+    {
+        Controller.Instance.GetControls().Player.Left.performed     -= OnLeftDown;
+        Controller.Instance.GetControls().Player.Left.canceled      -= OnLeftUp;
+        Controller.Instance.GetControls().Player.Right.performed    -= OnRightDown;
+        Controller.Instance.GetControls().Player.Right.canceled     -= OnRightUp;
+        Controller.Instance.GetControls().Player.Jump.performed     -= OnJumpUp;
+    }
+
     private void OnJumpUp(InputAction.CallbackContext obj)
     {
         _charController.Jump();

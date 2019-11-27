@@ -18,7 +18,7 @@ namespace Momo
                 {
                     Debug.LogError("MonoBehaviour creation error: T is not this");
                 }
-                DontDestroyOnLoad(gameObject);
+                //DontDestroyOnLoad(gameObject);
             }
             else
             {

@@ -49,6 +49,22 @@ public class Controls : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Up"",
+                    ""type"": ""Button"",
+                    ""id"": ""81c8078b-115d-44c3-a5c6-24b32827fa7b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Down"",
+                    ""type"": ""Button"",
+                    ""id"": ""67420425-71be-431f-8fb2-87fb4177c78d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -95,6 +111,28 @@ public class Controls : IInputActionCollection, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""75f3a7dc-3b01-4965-a6e3-530d02237c37"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ef177bb1-ced7-4abf-aac8-9c94d9ccc680"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -107,6 +145,8 @@ public class Controls : IInputActionCollection, IDisposable
         m_Player_Right = m_Player.FindAction("Right", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
+        m_Player_Up = m_Player.FindAction("Up", throwIfNotFound: true);
+        m_Player_Down = m_Player.FindAction("Down", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -160,6 +200,8 @@ public class Controls : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Right;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Pause;
+    private readonly InputAction m_Player_Up;
+    private readonly InputAction m_Player_Down;
     public struct PlayerActions
     {
         private Controls m_Wrapper;
@@ -168,6 +210,8 @@ public class Controls : IInputActionCollection, IDisposable
         public InputAction @Right => m_Wrapper.m_Player_Right;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
+        public InputAction @Up => m_Wrapper.m_Player_Up;
+        public InputAction @Down => m_Wrapper.m_Player_Down;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -189,6 +233,12 @@ public class Controls : IInputActionCollection, IDisposable
                 Pause.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
                 Pause.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
                 Pause.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                Up.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUp;
+                Up.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUp;
+                Up.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUp;
+                Down.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDown;
+                Down.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDown;
+                Down.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDown;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -205,6 +255,12 @@ public class Controls : IInputActionCollection, IDisposable
                 Pause.started += instance.OnPause;
                 Pause.performed += instance.OnPause;
                 Pause.canceled += instance.OnPause;
+                Up.started += instance.OnUp;
+                Up.performed += instance.OnUp;
+                Up.canceled += instance.OnUp;
+                Down.started += instance.OnDown;
+                Down.performed += instance.OnDown;
+                Down.canceled += instance.OnDown;
             }
         }
     }
@@ -215,5 +271,7 @@ public class Controls : IInputActionCollection, IDisposable
         void OnRight(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnUp(InputAction.CallbackContext context);
+        void OnDown(InputAction.CallbackContext context);
     }
 }
