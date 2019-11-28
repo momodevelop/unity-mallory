@@ -4,15 +4,17 @@ using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerPause : MonoBehaviour, IPauseable
+public class PlayerFreezeOnPause : MonoBehaviour
 {
     Vector3 oldVelocity;
 
-    private void Start()
+    private void Awake()
     {
+        EventManager.I.Events.StartListening("pause", Pause);
+        EventManager.I.Events.StartListening("unpause", Unpause);
     }
 
-    public void Pause()
+    public void Pause(object o)
     {
         MonoBehaviour[] scripts = GetComponents<MonoBehaviour>();
         foreach (MonoBehaviour script in scripts)
@@ -25,7 +27,7 @@ public class PlayerPause : MonoBehaviour, IPauseable
 
     }
 
-    public void Unpause()
+    public void Unpause(object o)
     {
         MonoBehaviour[] scripts = GetComponents<MonoBehaviour>();
         foreach (MonoBehaviour script in scripts)

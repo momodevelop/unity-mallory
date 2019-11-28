@@ -15,16 +15,22 @@ public class PauseMenu : MonoBehaviour
     CanvasRenderer[] canvasRenderers;
 
     Selector selector;
-    Text score;
+    Text scoreText;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         canvasRenderers = GetComponentsInChildren<CanvasRenderer>();
-        selector = GameObject.Find("Selector").GetComponent<Selector>();
-        score = GameObject.Find("Score").GetComponent<Text>();
+        selector = this.transform.Find("Selector").GetComponent<Selector>();
+        scoreText = this.transform.Find("Score").GetComponent<Text>();
+
+        EventManager.I.Events.StartListening("pause", ShowMenu);
+        EventManager.I.Events.StartListening("unpause", HideMenu);
     }
 
+    private void ExitPauseMenu(InputAction.CallbackContext obj)
+    {
+        EventManager.I.Events.TriggerEvent("unpause", null);
+    }
 
     private void Update()
     {
@@ -37,42 +43,17 @@ public class PauseMenu : MonoBehaviour
         foreach (CanvasRenderer cr in canvasRenderers)
             cr.SetAlpha(Mathf.Lerp(0.0f, 1.0f, timer / duration));
 
-
-
     }
 
-    public void ShowMenu()
+    public void ShowMenu(object o)
     {
-        increment = -increment;
-        score.text = String.Format("{0}", GameManager.I.GetScore());
-        selector.enabled = true;
-
-        Controller.Instance.GetControls().Player.Up.performed += OnUp;
-        Controller.Instance.GetControls().Player.Down.performed += OnDown;
-
+        increment = 1;
+        Controller.I.GetControls().Player.Pause.performed += ExitPauseMenu;
     }
 
-    public void HideMenu()
+    public void HideMenu(object o)
     {
-        Controller.Instance.GetControls().Player.Up.performed -= OnUp;
-        Controller.Instance.GetControls().Player.Down.performed -= OnDown;
-
-        increment = -increment;
-        selector.enabled = false;
-    }
-
-    public void OnUp(InputAction.CallbackContext obj)
-    {
-        selector.SelectionUp();
-    }
-
-    public void OnDown(InputAction.CallbackContext obj)
-    {
-        selector.SelectionDown();
-    }
-
-    public Selector.Options GetSelectedIndex()
-    {
-        return selector.GetSelectedIndex();
+        increment = -1;
+        Controller.I.GetControls().Player.Pause.performed -= ExitPauseMenu;
     }
 }

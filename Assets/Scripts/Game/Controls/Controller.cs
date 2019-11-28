@@ -1,9 +1,10 @@
-﻿public class Controller : Momo.Singleton<Controller>
+﻿public class Controller : Momo.PersistantMonoBehaviourSingleton<Controller>
 {
     private Controls controls;
-    
-    private Controller()
+
+    private void Awake()
     {
+        base.Awake();
         controls = new Controls();
         controls.Enable();
     }

@@ -17,7 +17,7 @@ public class PlayerClean : MonoBehaviour
     {
         if (collision.gameObject.layer == _cleanerLayerId)
         {
-            SceneManager.LoadScene("Splash");
+            EventManager.I.Events.TriggerEvent("player_died", null);
         }
     }
 }

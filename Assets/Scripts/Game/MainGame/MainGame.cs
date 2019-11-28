@@ -1,44 +1,49 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MainGame : MonoBehaviour
 {
-    IPauseable[] pauseables;
-
-    [SerializeField]
     Transform player;
     int score = 0;
 
-    void Start()
+    void Awake()
     {
-        pauseables = GetComponentsInChildren<IPauseable>();
+        player = this.transform.Find("Player");
+
+        
+
+        EventManager.I.Events.StartListening("pause", Pause);
+        EventManager.I.Events.StartListening("unpause", Unpause);
     }
 
-    public void Pause()
+    private void Unpause(object obj)
     {
-        foreach (IPauseable pauseable in pauseables)
-            pauseable.Pause();
+        Controller.I.GetControls().Player.Pause.performed += PauseGame;
     }
 
-    public void Unpause()
+    private void Pause(object obj)
     {
-        foreach (IPauseable pauseable in pauseables)
-            pauseable.Unpause();
+        Controller.I.GetControls().Player.Pause.performed -= PauseGame;
     }
 
-    void Update()
+    private void PauseGame(InputAction.CallbackContext obj)
+    {
+        EventManager.I.Events.TriggerEvent("pause", null);
+    }
+
+    public void UpdateScore()
     {
         // score keeping
-        if (this.transform.position.y > Camera.main.transform.position.y)
+        if (player.position.y > Camera.main.transform.position.y)
         {
-            Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, this.transform.position.y, Camera.main.transform.position.z);
+            Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, player.position.y, Camera.main.transform.position.z);
             ++score;
         }
     }
 
-    public int GetScore()
-    {
-        return score;
-    }
+
+
 }

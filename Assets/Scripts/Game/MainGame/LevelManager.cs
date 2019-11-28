@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using Momo;
 
-public class LevelManager : MonoBehaviour, IPauseable
+public class LevelManager : MonoBehaviour
 {
 
     #region Drag and Drop
@@ -22,7 +21,7 @@ public class LevelManager : MonoBehaviour, IPauseable
     #endregion
 
     float currentY = 0.5f;
-    Simpool obstaclePool;
+    Momo.Simpool obstaclePool;
 
     // Start is called before the first frame update
     void Awake()
@@ -30,10 +29,12 @@ public class LevelManager : MonoBehaviour, IPauseable
         DestroyIfNull(obstaclePrefab);
         DestroyIfNull(levelEndTrigger);
 
-        obstaclePool = new Simpool(obstaclePrefab, 320);
+        obstaclePool = new Momo.Simpool(obstaclePrefab, 320);
 
         // Observe level end trigger box event
         levelEndTrigger.onTriggerEnterEvent += OnLevelEndTrigger;
+        EventManager.I.Events.StartListening("pause", Pause);
+        EventManager.I.Events.StartListening("unpause", Unpause);
 
         // Generate the first level
         GenerateLevel(16, 20, 2, 4, 1, 3, 4, 50, true);
@@ -101,12 +102,12 @@ public class LevelManager : MonoBehaviour, IPauseable
             Destroy(this);
     }
 
-    public void Pause()
+    public void Pause(object o)
     {
         this.gameObject.SetActive(false);
     }
 
-    public void Unpause()
+    public void Unpause(object o)
     {
         this.gameObject.SetActive(true);
     }

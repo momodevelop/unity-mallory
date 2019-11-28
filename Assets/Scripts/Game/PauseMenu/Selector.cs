@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,26 +17,47 @@ public class Selector : MonoBehaviour
     float duration = 2.0f;
     Color targetColor;
     Color startColor;
+    bool update = true;
 
     private int selected = 0;
 
-    GameObject[] optionTransforms = new GameObject[3];
+    [SerializeField]
+    Transform[] optionTransforms = new Transform[3];
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         cr = GetComponent<CanvasRenderer>();
-        startColor = targetColor = new Color(Random.value , Random.value, Random.value);
+        startColor = targetColor = new Color(UnityEngine.Random.value , UnityEngine.Random.value, UnityEngine.Random.value);
         cr.SetColor(targetColor);
 
-        optionTransforms[0] = GameObject.Find("GoToGame");
-        optionTransforms[1] = GameObject.Find("Restart");
-        optionTransforms[2] = GameObject.Find("Quit");
+        EventManager.I.Events.StartListening("pause", ShowMenu);
+        EventManager.I.Events.StartListening("unpause", HideMenu);
+    }
+
+    private void ShowMenu(object obj)
+    {
+        Controller.I.GetControls().Player.Up.performed += SelectionUp;
+        Controller.I.GetControls().Player.Down.performed += SelectionDown;
+        Controller.I.GetControls().Player.Jump.performed += SelectionConfirm;
+        update = true;
+
+    }
+
+    private void HideMenu(object obj)
+    {
+        Controller.I.GetControls().Player.Up.performed -= SelectionUp;
+        Controller.I.GetControls().Player.Down.performed -= SelectionDown;
+        Controller.I.GetControls().Player.Jump.performed -= SelectionConfirm;
+        update = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!update)
+            return;
+
         if (timer >= duration)
         {
             // transition complete
@@ -46,38 +66,38 @@ public class Selector : MonoBehaviour
 
             // start a new transition
             startColor = targetColor;
-            targetColor = new Color(Random.value, Random.value, Random.value);
+            targetColor = new Color(UnityEngine.Random.value, UnityEngine.Random.value, UnityEngine.Random.value);
             timer = 0.0f;
         }
         else
         {
             cr.SetColor(Color.Lerp(startColor, targetColor, timer/duration));
-            timer += Time.deltaTime;
+            timer +=  Time.deltaTime;
         }
 
     }
 
-    public void SelectionUp()
+    void SelectionUp(InputAction.CallbackContext obj)
     {
-        if (selected == 0)
+        if (selected == (int)Options.GO_TO_GAME)
             return;
         --selected;
         Vector3 pos = transform.position;
-        transform.position = new Vector3(pos.x, optionTransforms[selected].transform.position.y + 5.0f, pos.z);
+        transform.position = new Vector3(pos.x, optionTransforms[selected].position.y + 5.0f, pos.z);
     }
 
-    public void SelectionDown()
+    void SelectionDown(InputAction.CallbackContext obj)
     {
-        if (selected == 2)
+        if (selected == (int)Options.QUIT)
             return;
         ++selected;
         Vector3 pos = transform.position;
-        transform.position = new Vector3(pos.x, optionTransforms[selected].transform.position.y + 5.0f, pos.z);
+        transform.position = new Vector3(pos.x, optionTransforms[selected].position.y + 5.0f, pos.z);
     }
 
-    public Options GetSelectedIndex()
+
+    public void SelectionConfirm(InputAction.CallbackContext obj)
     {
-        return (Options)selected;
-    } 
-   
+        // TODO
+    }
 }

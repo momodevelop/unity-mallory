@@ -18,20 +18,24 @@ public class PlayerMovementInput : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Controller.Instance.GetControls().Player.Left.performed += OnLeftDown;
-        Controller.Instance.GetControls().Player.Left.canceled += OnLeftUp;
-        Controller.Instance.GetControls().Player.Right.performed += OnRightDown;
-        Controller.Instance.GetControls().Player.Right.canceled += OnRightUp;
-        Controller.Instance.GetControls().Player.Jump.performed += OnJumpUp;
+        EventManager.I.Events.StartListening("pause", Pause);
+        EventManager.I.Events.StartListening("unpause", Unpause);
+
+        Controller.I.GetControls().Player.Left.performed += OnLeftDown;
+        Controller.I.GetControls().Player.Left.canceled += OnLeftUp;
+        Controller.I.GetControls().Player.Right.performed += OnRightDown;
+        Controller.I.GetControls().Player.Right.canceled += OnRightUp;
+        Controller.I.GetControls().Player.Jump.performed += OnJumpUp;
     }
 
-    private void OnDestroy()
+    private void Unpause(object obj)
     {
-        Controller.Instance.GetControls().Player.Left.performed     -= OnLeftDown;
-        Controller.Instance.GetControls().Player.Left.canceled      -= OnLeftUp;
-        Controller.Instance.GetControls().Player.Right.performed    -= OnRightDown;
-        Controller.Instance.GetControls().Player.Right.canceled     -= OnRightUp;
-        Controller.Instance.GetControls().Player.Jump.performed     -= OnJumpUp;
+        this.gameObject.SetActive(true);
+    }
+
+    private void Pause(object obj)
+    {
+        this.gameObject.SetActive(false);
     }
 
     private void OnJumpUp(InputAction.CallbackContext obj)
