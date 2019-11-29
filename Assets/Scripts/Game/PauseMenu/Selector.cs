@@ -33,6 +33,9 @@ public class Selector : MonoBehaviour
 
         EventManager.I.Events.StartListening("pause", ShowMenu);
         EventManager.I.Events.StartListening("unpause", HideMenu);
+
+        Vector3 pos = transform.position;
+        transform.position = new Vector3(pos.x, optionTransforms[0].position.y + 5.0f, pos.z);
     }
 
     private void ShowMenu(object obj)
