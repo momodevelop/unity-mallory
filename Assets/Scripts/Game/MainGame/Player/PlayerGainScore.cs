@@ -4,6 +4,20 @@ using UnityEngine;
 
 public class PlayerGainScore : MonoBehaviour
 {
+    private void Awake()
+    {
+        EventManager.I.Events.StartListening("pause", Pause);
+        EventManager.I.Events.StartListening("unpause", Unpause);
+    }
+    private void Unpause(object obj)
+    {
+        this.enabled = false;
+    }
+
+    private void Pause(object obj)
+    {
+        this.enabled = true;
+    }
     // Update is called once per frame
     void Update()
     {

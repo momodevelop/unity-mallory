@@ -14,13 +14,12 @@ public class PlayerMovementInput : MonoBehaviour
     private void Awake()
     {
         _charController = GetComponent<CharacterController>();
+        EventManager.I.Events.StartListening("pause", Pause);
+        EventManager.I.Events.StartListening("unpause", Unpause);
     }
     // Start is called before the first frame update
     void Start()
     {
-        EventManager.I.Events.StartListening("pause", Pause);
-        EventManager.I.Events.StartListening("unpause", Unpause);
-
         Controller.I.GetControls().Player.Left.performed += OnLeftDown;
         Controller.I.GetControls().Player.Left.canceled += OnLeftUp;
         Controller.I.GetControls().Player.Right.performed += OnRightDown;
@@ -30,12 +29,12 @@ public class PlayerMovementInput : MonoBehaviour
 
     private void Unpause(object obj)
     {
-        this.gameObject.SetActive(true);
+        this.enabled = false;
     }
 
     private void Pause(object obj)
     {
-        this.gameObject.SetActive(false);
+        this.enabled = true;
     }
 
     private void OnJumpUp(InputAction.CallbackContext obj)
@@ -67,11 +66,6 @@ public class PlayerMovementInput : MonoBehaviour
         _charController.Move(_movementAxis);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-       
-    }
 
 
 

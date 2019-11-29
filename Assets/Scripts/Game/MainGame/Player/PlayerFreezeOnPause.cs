@@ -6,22 +6,18 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerFreezeOnPause : MonoBehaviour
 {
-    Vector3 oldVelocity;
-
+    Vector2 oldVelocity;
+    Rigidbody2D rb;
     private void Awake()
     {
+        rb = GetComponent<Rigidbody2D>();
         EventManager.I.Events.StartListening("pause", Pause);
         EventManager.I.Events.StartListening("unpause", Unpause);
     }
 
     public void Pause(object o)
     {
-        MonoBehaviour[] scripts = GetComponents<MonoBehaviour>();
-        foreach (MonoBehaviour script in scripts)
-            script.enabled = false;
-        GetComponent<SpriteRenderer>().enabled = true;
-
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        this.enabled = false;
         oldVelocity = rb.velocity;
         rb.Sleep();
 
@@ -29,11 +25,8 @@ public class PlayerFreezeOnPause : MonoBehaviour
 
     public void Unpause(object o)
     {
-        MonoBehaviour[] scripts = GetComponents<MonoBehaviour>();
-        foreach (MonoBehaviour script in scripts)
-            script.enabled = true;
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        rb.velocity = oldVelocity;
+        this.enabled = true;
         rb.WakeUp();
+        rb.velocity = oldVelocity;
     }
 }
