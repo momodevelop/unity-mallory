@@ -17,16 +17,15 @@ public class PlayerFreezeOnPause : MonoBehaviour
 
     public void Pause(object o)
     {
-        this.enabled = false;
         oldVelocity = rb.velocity;
-        rb.Sleep();
-
+        rb.simulated = false;
+        this.enabled = false;
     }
 
     public void Unpause(object o)
     {
         this.enabled = true;
-        rb.WakeUp();
+        rb.simulated = true;
         rb.velocity = oldVelocity;
     }
 }

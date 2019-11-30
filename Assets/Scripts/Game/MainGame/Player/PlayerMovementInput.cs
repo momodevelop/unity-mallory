@@ -29,12 +29,12 @@ public class PlayerMovementInput : MonoBehaviour
 
     private void Unpause(object obj)
     {
-        this.enabled = false;
+        this.enabled = true;
     }
 
     private void Pause(object obj)
     {
-        this.enabled = true;
+        this.enabled = false;
     }
 
     private void OnJumpUp(InputAction.CallbackContext obj)
