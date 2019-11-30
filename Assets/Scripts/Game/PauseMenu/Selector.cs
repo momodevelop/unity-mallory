@@ -55,6 +55,13 @@ public class Selector : MonoBehaviour
         update = false;
     }
 
+    private void OnDestroy()
+    {
+        Controller.I.GetControls().Player.Up.performed -= SelectionUp;
+        Controller.I.GetControls().Player.Down.performed -= SelectionDown;
+        Controller.I.GetControls().Player.Jump.performed -= SelectionConfirm;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -107,10 +114,10 @@ public class Selector : MonoBehaviour
                 EventManager.I.Events.TriggerEvent("unpause", null);
                 break;
             case Options.QUIT:
-                EventManager.I.Events.TriggerEvent("quit_game", null);
+                EventManager.I.Events.TriggerEvent("game_quit", null);
                 break;
             case Options.RESTART:
-                EventManager.I.Events.TriggerEvent("restart_game", null);
+                EventManager.I.Events.TriggerEvent("game_restart", null);
                 break;
         }
     }

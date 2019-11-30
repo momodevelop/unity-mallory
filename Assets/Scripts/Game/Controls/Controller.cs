@@ -2,7 +2,7 @@
 {
     private Controls controls;
 
-    private void Awake()
+    public override void Awake()
     {
         base.Awake();
         controls = new Controls();
