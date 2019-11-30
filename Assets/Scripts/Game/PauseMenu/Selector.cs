@@ -101,6 +101,17 @@ public class Selector : MonoBehaviour
 
     public void SelectionConfirm(InputAction.CallbackContext obj)
     {
-        // TODO
+        switch((Options)selected)
+        {
+            case Options.GO_TO_GAME:
+                EventManager.I.Events.TriggerEvent("unpause", null);
+                break;
+            case Options.QUIT:
+                EventManager.I.Events.TriggerEvent("quit_game", null);
+                break;
+            case Options.RESTART:
+                EventManager.I.Events.TriggerEvent("restart_game", null);
+                break;
+        }
     }
 }
