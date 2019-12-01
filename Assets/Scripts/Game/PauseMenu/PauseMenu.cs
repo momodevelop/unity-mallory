@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(CanvasGroup))]
 public class PauseMenu : MonoBehaviour
 {
 
@@ -12,14 +13,13 @@ public class PauseMenu : MonoBehaviour
     float duration = 0.1f;
     float increment = 1.0f;
 
-    CanvasRenderer[] canvasRenderers;
-
+    CanvasGroup canvasGroup;
     Selector selector;
     Text scoreText;
 
     void Awake()
     {
-        canvasRenderers = GetComponentsInChildren<CanvasRenderer>();
+        canvasGroup = GetComponent<CanvasGroup>();
         selector = this.transform.Find("Selector").GetComponent<Selector>();
         scoreText = this.transform.Find("Score").GetComponent<Text>();
 
@@ -40,8 +40,7 @@ public class PauseMenu : MonoBehaviour
         if (timer <= 0.0f)
             timer = 0.0f;
 
-        foreach (CanvasRenderer cr in canvasRenderers)
-            cr.SetAlpha(Mathf.Lerp(0.0f, 1.0f, timer / duration));
+        canvasGroup.alpha = Mathf.Lerp(0.0f, 1.0f, timer / duration);
 
     }
 

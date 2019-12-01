@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Momo;
 
 public class GameManager : MonoBehaviour
 {
@@ -24,4 +25,15 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("JumpMan");
     }
+
+    float timer = 0.0f;
+    
+    private void Update()
+    {
+        //timer += Time.deltaTime;
+        //SimpleBlit blitScript = Camera.main.GetComponent<SimpleBlit>();
+        //blitScript.TransitionMaterial.SetFloat("_Cutoff", timer);
+    }
 }
+
+

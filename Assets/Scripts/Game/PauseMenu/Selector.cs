@@ -35,7 +35,7 @@ public class Selector : MonoBehaviour
         EventManager.I.Events.StartListening("unpause", HideMenu);
 
         Vector3 pos = transform.position;
-        transform.position = new Vector3(pos.x, optionTransforms[0].position.y + 5.0f, pos.z);
+        transform.position = new Vector3(pos.x, optionTransforms[0].position.y, pos.z);
     }
 
     private void ShowMenu(object obj)
@@ -93,7 +93,7 @@ public class Selector : MonoBehaviour
             return;
         --selected;
         Vector3 pos = transform.position;
-        transform.position = new Vector3(pos.x, optionTransforms[selected].position.y + 5.0f, pos.z);
+        transform.position = new Vector3(pos.x, optionTransforms[selected].position.y, pos.z);
     }
 
     void SelectionDown(InputAction.CallbackContext obj)
@@ -102,7 +102,7 @@ public class Selector : MonoBehaviour
             return;
         ++selected;
         Vector3 pos = transform.position;
-        transform.position = new Vector3(pos.x, optionTransforms[selected].position.y + 5.0f, pos.z);
+        transform.position = new Vector3(pos.x, optionTransforms[selected].position.y, pos.z);
     }
 
 

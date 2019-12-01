@@ -21,7 +21,7 @@ public class WrapPosition : MonoBehaviour
         if (!wrapX && !wrapY)
             return;
 
-        Vector2 newPosition = transform.position;
+        Vector3 newPosition = transform.position;
         if (wrapX) {
             if (transform.position.x < mins.x)
             {
@@ -46,7 +46,7 @@ public class WrapPosition : MonoBehaviour
                 newPosition.y = mins.y;
             }
         }
-
+        
         transform.position = newPosition;
         
 

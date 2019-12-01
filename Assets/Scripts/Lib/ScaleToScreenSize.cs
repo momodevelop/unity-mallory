@@ -13,6 +13,15 @@ public class ScaleToScreenSize : MonoBehaviour
     {
         Vector2 mins = Camera.main.ScreenToWorldPoint(new Vector2(0, 0));
         Vector2 maxs = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        Sprite sp = null;
+        Texture texture = null;
+        if ( sr )
+        {
+            sp = sr.sprite;
+            if (sp)
+                texture = sp.texture;
+        }
 
         // get world to screen units?
         
@@ -21,12 +30,16 @@ public class ScaleToScreenSize : MonoBehaviour
         if (width)
         {
             float scaleX = (maxs.x - mins.x) * pixelPerUnit;
+            if (texture)
+                scaleX /= texture.width;
             transform.localScale = new Vector3(scaleX, transform.localScale.y, transform.localScale.z);
         }
 
         if (height)
         {
             float scaleY = (maxs.y - mins.y) * pixelPerUnit;
+            if (texture)
+                scaleY /= texture.height;
             transform.localScale = new Vector3(transform.localScale.x, scaleY, transform.localScale.z);
         }
         
