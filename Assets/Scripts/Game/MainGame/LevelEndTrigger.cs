@@ -11,7 +11,7 @@ public class LevelEndTrigger : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        this.transform.position = new Vector3(Camera.main.transform.position.x, 0.0f, this.transform.position.z);
+        this.transform.position = new Vector3(Camera.main.transform.position.x, this.transform.position.y, this.transform.position.z);
         this.transform.localScale = new Vector3(Utils.GetCameraWidthPixels(), Utils.GetPixelPerUnit());
         EventManager.I.Events.StartListening("pause", Pause);
         EventManager.I.Events.StartListening("unpause", Unpause);
