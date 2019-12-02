@@ -21,6 +21,11 @@ public class Quote : MonoBehaviour
         "It sure is getting lonely...",
         "I have to climb. I have to.",
         "I have already forgotten the reason...",
+        "Did I reach this high before?",
+        "When will this end?",
+        "Momo is such an amazing developer...",
+        "What does Mallory even mean anyway?",
+        "I'm hungry..."
     };
 
     string targetText = "Why am I climbing so high for?";

@@ -1,26 +1,15 @@
 ﻿using UnityEngine;
-using System;
 
 // Standard character controller used for this game
 [RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D))]
 public class CharacterController : MonoBehaviour
 {
-    [Flags]
-    public enum StateEnum
-    {
-        GROUNDED = 1 << 0,
-        CROUCHING = 1 << 1
-    }
-
-
     #region Private Variables
-    private Transform _transform;
     private Rigidbody2D _rigidBody;
     private BoxCollider2D _boxCollider;
-   // private StateEnum _state = 0;
     private Vector3 _currentVelocity = Vector3.zero;
     private float _moveFactor = 0.0f;
-    private int _jumpCounter = 0;
+    public int _jumpCounter = 0;
     private int _groundLayerId = 0;
     #endregion
 
@@ -37,7 +26,6 @@ public class CharacterController : MonoBehaviour
 
     private void Awake()
     {
-        _transform = GetComponent<Transform>();
         _rigidBody = GetComponent<Rigidbody2D>();
         _boxCollider = GetComponent<BoxCollider2D>();
 
@@ -81,13 +69,14 @@ public class CharacterController : MonoBehaviour
         DrawDebugBounds(in bounds, Color.green);
 #endif
 
-        if(Physics2D.OverlapBox(
+ 
+        if (Physics2D.OverlapBox(
                 new Vector2(_boxCollider.transform.position.x, _boxCollider.transform.position.y - _boxCollider.bounds.extents.y),
-                _boxCollider.size, 0.0f, 1 << _groundLayerId))
+                bounds.size, 0.0f, 1 << _groundLayerId))
         {
-
             _jumpCounter = 1;
         }
+        
     }
 
     public void Jump()

@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        Cursor.visible = false;
         timer = duration;
         EventManager.I.Events.TriggerEvent("pause", null);
         EventManager.I.Events.StartListening("game_restart", RestartGame);
