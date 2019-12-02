@@ -16,15 +16,8 @@ public class GameManager : MonoBehaviour
 
     // high scores
 
-    string savePath = Application.streamingAssetsPath + "/save.json";
 
-    [Serializable]
-    class SaveCollection
-    {
-        public List<int> highscores = new List<int>();
-    };
-    SaveCollection saveCollection;
-    
+
     void Start()
     {
         timer = duration;
@@ -36,26 +29,9 @@ public class GameManager : MonoBehaviour
         blitScript = Camera.main.GetComponent<SimpleBlit>();
         blitScript.TransitionMaterial.SetFloat("_Cutoff", timer / duration);
 
-       // Load();
     }
 
-    private void Load()
-    {
-        using (StreamReader sr = new StreamReader(savePath))
-        {
-            string json = sr.ReadToEnd();
-            saveCollection = JsonUtility.FromJson<SaveCollection>(json);
-        }
-    }
-
-    private void Save()
-    {
-        using (StreamWriter sw = new StreamWriter(savePath))
-        {
-            string json = JsonUtility.ToJson(saveCollection);
-            sw.Write(json);
-        }
-    }
+    
 
     private void QuitGame(object obj)
     {
@@ -70,7 +46,6 @@ public class GameManager : MonoBehaviour
     private void PlayerDied(object obj)
     {
         restart = true;
-        //saveCollection.highscores.Add((int)Camera.main.transform.position.y);
     }
 
     private void Update()

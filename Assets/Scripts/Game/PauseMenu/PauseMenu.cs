@@ -14,15 +14,9 @@ public class PauseMenu : MonoBehaviour
     float increment = 1.0f;
 
     CanvasGroup canvasGroup;
-    Selector selector;
-    Text scoreText;
-
     void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>();
-        selector = this.transform.Find("Selector").GetComponent<Selector>();
-        scoreText = this.transform.Find("Score").GetComponent<Text>();
-
         EventManager.I.Events.StartListening("pause", ShowMenu);
         EventManager.I.Events.StartListening("unpause", HideMenu);
     }

@@ -48,7 +48,6 @@ namespace Momo
 
         public void TriggerEvent(Key eventName, EventParam eventParam)
         {
-            Debug.Log(eventName.ToString());
             Action<EventParam> thisEvent = null;
             if (eventDictionary.TryGetValue(eventName, out thisEvent))
             {
