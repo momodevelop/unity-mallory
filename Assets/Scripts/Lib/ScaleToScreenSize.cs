@@ -1,55 +1,58 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class ScaleToScreenSize : MonoBehaviour
+namespace Momo
 {
-    private const float pixelPerUnit = 100;
-    public bool width;
-    public bool height;
-
-    // Start is called before the first frame update
-    void Awake()
+    public class ScaleToScreenSize : MonoBehaviour
     {
-        Vector2 mins = Camera.main.ScreenToWorldPoint(new Vector2(0, 0));
-        Vector2 maxs = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
-        SpriteRenderer sr = GetComponent<SpriteRenderer>();
-        Sprite sp = null;
-        Texture texture = null;
-        if ( sr )
+        private const float pixelPerUnit = 100;
+        public bool width;
+        public bool height;
+
+        // Start is called before the first frame update
+        void Awake()
         {
-            sp = sr.sprite;
-            if (sp)
-                texture = sp.texture;
+            Vector2 mins = Camera.main.ScreenToWorldPoint(new Vector2(0, 0));
+            Vector2 maxs = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
+            SpriteRenderer sr = GetComponent<SpriteRenderer>();
+            Sprite sp = null;
+            Texture texture = null;
+            if (sr)
+            {
+                sp = sr.sprite;
+                if (sp)
+                    texture = sp.texture;
+            }
+
+            // get world to screen units?
+
+
+
+            if (width)
+            {
+                float scaleX = (maxs.x - mins.x) * pixelPerUnit;
+                if (texture)
+                    scaleX /= texture.width;
+                transform.localScale = new Vector3(scaleX, transform.localScale.y, transform.localScale.z);
+            }
+
+            if (height)
+            {
+                float scaleY = (maxs.y - mins.y) * pixelPerUnit;
+                if (texture)
+                    scaleY /= texture.height;
+                transform.localScale = new Vector3(transform.localScale.x, scaleY, transform.localScale.z);
+            }
+
+            Destroy(this);
+
         }
 
-        // get world to screen units?
-        
-
-
-        if (width)
+        // Update is called once per frame
+        void Update()
         {
-            float scaleX = (maxs.x - mins.x) * pixelPerUnit;
-            if (texture)
-                scaleX /= texture.width;
-            transform.localScale = new Vector3(scaleX, transform.localScale.y, transform.localScale.z);
-        }
 
-        if (height)
-        {
-            float scaleY = (maxs.y - mins.y) * pixelPerUnit;
-            if (texture)
-                scaleY /= texture.height;
-            transform.localScale = new Vector3(transform.localScale.x, scaleY, transform.localScale.z);
         }
-        
-        Destroy(this);
-
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

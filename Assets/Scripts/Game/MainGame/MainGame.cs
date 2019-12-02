@@ -17,6 +17,7 @@ public class MainGame : MonoBehaviour
 
         EventManager.I.Events.StartListening("pause", Pause);
         EventManager.I.Events.StartListening("unpause", Unpause);
+
     }
 
     private void Unpause(object obj)

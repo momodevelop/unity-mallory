@@ -7,10 +7,18 @@
         base.Awake();
         controls = new Controls();
         controls.Enable();
+        
     }
 
     public Controls GetControls()
     {
         return controls;
     }
+
+    private void OnDestroy()
+    {
+        controls.Dispose();
+    }
+
+
 }
