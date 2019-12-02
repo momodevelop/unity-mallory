@@ -736,7 +736,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Reset Scores
+  m_Text: Reset
 --- !u!222 &898889709
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1080,7 +1080,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Return to game
+  m_Text: Return
 --- !u!222 &1060407984
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1210,6 +1210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9730ba0c7ca3dd6448d6c1e989df13c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _jumpCounter: 1
   jumpForce: 13
   jumpAmount: 2
   jumpTriggerWidth: 0.5
@@ -2086,6 +2087,11 @@ PrefabInstance:
         type: 3}
       propertyPath: jumpForce
       value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1650918666567926044, guid: ad63480983b91f84eaa22f3420f1a772,
+        type: 3}
+      propertyPath: jumpAmount
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1650918667129429318, guid: ad63480983b91f84eaa22f3420f1a772,
         type: 3}
