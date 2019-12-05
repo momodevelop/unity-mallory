@@ -1,6 +1,7 @@
 # HOW TO PLAY 
 
-WASD to move, Space to Jump, Escape to Pause.
+In Game: SD to move, Space to Jump, Escape to Pause.
+In Menu: WS to move, Space to confirm, Escape to Unpause
 
 # DESCRIPTION 
 
