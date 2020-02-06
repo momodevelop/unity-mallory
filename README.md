@@ -11,3 +11,6 @@ There are two main motivations to making this game:
 to create demos, I have not created a proper game. 
 * To create a game that has some form of procedural generation.
 
+# Technologies and languages Used
+* Unity3D
+* C# (for Unity3D and Level Generation program)
