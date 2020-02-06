@@ -1,5 +1,6 @@
 # What is this??
 Mallory is a simple endless vertical jumping platformer PC game made in Unity3D.
+
 Climb as high as you can! Leave your mark for others who may follow.
 
 Game is avaliable [here](https://momohoudai.itch.io/mallory)
