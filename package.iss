@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Mallory"
-#define MyAppVersion "1.0"
+#define MyAppVersion "1.1"
 #define MyAppPublisher "Momodevelop"
 #define MyAppURL "http://wordpress.com/momodevelop"
 #define MyAppExeName "Mallory.exe"
@@ -25,11 +25,12 @@ AllowNoIcons=yes
 UsedUserAreasWarning=no
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
-OutputDir=C:\Users\GERALD WONG\Desktop\test
+OutputDir=./Deploy
 OutputBaseFilename=mallory
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
+UsePreviousAppDir=no
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -39,8 +40,8 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 6.1; Check: not IsAdminInstallMode
 
 [Files]
-Source: "C:\Users\GERALD WONG\Desktop\New folder\Mallory.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\GERALD WONG\Desktop\Mallory\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "./Build/Mallory.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "./Build/*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

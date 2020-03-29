@@ -8,7 +8,6 @@ namespace Momo
     public class EventManager<Key, EventParam>
     {
         private Dictionary<Key, Action<EventParam>> eventDictionary;
-
         public EventManager()
         {
             eventDictionary = new Dictionary<Key, Action<EventParam>>();

@@ -14,10 +14,10 @@ public class GameManager : MonoBehaviour
     float duration = 0.2f;
 
 
-    // high scores
-
-
-
+    private void Awake()
+    {
+        Screen.SetResolution(1600, 900, false);
+    }
     void Start()
     {
         Cursor.visible = false;
